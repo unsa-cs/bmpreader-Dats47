@@ -1,5 +1,3 @@
-//**Extensión del Proyecto**: Modifica el código para que el nombre del archivo BMP sea recibido como un argumento en la línea de comandos. 
-//Asegúrate de manejar correctamente los errores en caso de que el archivo no se encuentre o no sea un BMP válido.
 #include "bmp.h"
 #include <GL/glut.h>
 
