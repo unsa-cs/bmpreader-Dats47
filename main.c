@@ -16,12 +16,12 @@ void convertGrayScale(BMPImage* image) {
   for(unsigned int i=0; i<image->width * image->height; i++){
     unsigned int r=image->data[i*3+2]:
     unsigned int g=image->data[i*3+1];
-    unsigned int b=image->data[i*3];
-    unsigned gray = (r + g + b)/3; // promedio
+    unsigned int b=image->data[i*3+0];
+    unsigned gray =  (0.299 * r + 0.587 * g + 0.114 * b); // formula ponderada
     
     image->data[i*3+2] = gray; // R
     image->data[i*3+1] = gray; // G
-    image->data[i*3] = gray; // B
+    image->data[i*3+0] = gray; // B
   }
 }
 
