@@ -25,6 +25,16 @@ void convertGrayScale(BMPImage* image) {
   }
 }
 
+int processArguments(int argc, char *argv[]) {
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i], "-bw") == 0) {
+            convertToBlackAndWhite(image);
+            return 1; // Se realizó la conversión
+        }
+    }
+    return 0; // No se realizó ninguna conversión
+}
+
 int main(int argc, char *argv[]) {
   if (argc < 2) {
         fprintf(stderr, "Uso: %s <nombre_del_archivo.bmp> [opciones]\n", argv[0]);
@@ -36,6 +46,9 @@ int main(int argc, char *argv[]) {
       fprintf(stderr, "Error: No se pudo leer el archivo BMP: %s\n", argv[1]);
       return 1;
   }
+
+  // Procesar argumentos
+  processArguments(argc, argv);
   
   glutInit(&argc, argv);
 
