@@ -12,6 +12,14 @@ void display() {
   glFlush();
 }
 
+void convertGrayScale(BMPImage* image) {
+  for(unsigned int i=0; i<image->width * image->height; i++){
+    unsigned int r=image->data[i*3+2]:
+    unsigned int g=image->data[i*3+1];
+    unsigned int b=image->data[i*3];
+  }
+}
+
 int main() {
   char filename[256];
 
