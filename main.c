@@ -17,7 +17,11 @@ void convertGrayScale(BMPImage* image) {
     unsigned int r=image->data[i*3+2]:
     unsigned int g=image->data[i*3+1];
     unsigned int b=image->data[i*3];
-    unsigned promedio = r + g + b;
+    unsigned gray = (r + g + b)/3; // promedio
+    
+    image->data[i*3+2] = gray; // R
+    image->data[i*3+1] = gray; // G
+    image->data[i*3] = gray; // B
   }
 }
 
