@@ -35,6 +35,9 @@ int main() {
   image = readBMP(filename);
   if (!image) return 1;
 
+  //Convertir a escalado de grises
+  convertGrayScale(image);
+  
   // Inicializar GLUT
   int argc = 1; // Necesario para evitar problemas con glutInit
   char *argv[1] = { "" }; // Argumento vacío para GLUT
