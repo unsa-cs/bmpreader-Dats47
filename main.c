@@ -1,6 +1,7 @@
 #include "bmp.h"
 #include <GL/glut.h>
 #include <stdio.h>
+#include <string.h>
 
 BMPImage *image;
 
@@ -12,19 +13,44 @@ void display() {
   glFlush();
 }
 
-int main() {
-  char filename[256];
+void convertGrayScale(BMPImage* image) {
+  for(unsigned int i=0; i<image->width * image->height; i++){
+    unsigned int r=image->data[i*3+2];
+    unsigned int g=image->data[i*3+1];
+    unsigned int b=image->data[i*3+0];
+    unsigned gray =  (0.299 * r + 0.587 * g + 0.114 * b); // formula ponderada
+    
+    image->data[i*3+2] = gray; // R
+    image->data[i*3+1] = gray; // G
+    image->data[i*3+0] = gray; // B
+  }
+}
 
-  // Pedir al usuario el nombre del archivo BMP
-  printf("Ingrese el nombre del archivo BMP (con extensión): ");
-  scanf("%255s", filename);
+int processArguments(int argc, char *argv[]) {
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i], "-bw") == 0) {
+            convertGrayScale(image);
+            return 1; // Se realizó la conversión
+        }
+    }
+    return 0; // No se realizó ninguna conversión
+}
 
-  image = readBMP(filename);
-  if (!image) return 1;
+int main(int argc, char *argv[]) {
+  if (argc < 2) {
+        fprintf(stderr, "Uso: %s <nombre_del_archivo.bmp> [opciones]\n", argv[0]);
+        return 1;
+  }
 
-  // Inicializar GLUT
-  int argc = 1; // Necesario para evitar problemas con glutInit
-  char *argv[1] = { "" }; // Argumento vacío para GLUT
+  image = readBMP(argv[1]);
+  if (!image) {
+      fprintf(stderr, "Error: No se pudo leer el archivo BMP: %s\n", argv[1]);
+      return 1;
+  }
+
+  // Procesar argumentos
+  processArguments(argc, argv);
+  
   glutInit(&argc, argv);
 
   // Establecer el modo de visualización

@@ -5,6 +5,7 @@ BMPImage* readBMP(const char *filename) {
   BMPImage *image = malloc(sizeof(BMPImage));
   FILE *file = fopen(filename, "rb");
 
+  //Verifica si el archivo existe o se puede abrir
   if (!file) {
     fprintf(stderr, "No se puede abrir el archivo %s\n", filename);
     free(image);
