@@ -1,6 +1,7 @@
 #include "bmp.h"
 #include <GL/glut.h>
 #include <stdio.h>
+#include <string.h>
 
 BMPImage *image;
 
@@ -14,7 +15,7 @@ void display() {
 
 void convertGrayScale(BMPImage* image) {
   for(unsigned int i=0; i<image->width * image->height; i++){
-    unsigned int r=image->data[i*3+2]:
+    unsigned int r=image->data[i*3+2];
     unsigned int g=image->data[i*3+1];
     unsigned int b=image->data[i*3+0];
     unsigned gray =  (0.299 * r + 0.587 * g + 0.114 * b); // formula ponderada
@@ -28,7 +29,7 @@ void convertGrayScale(BMPImage* image) {
 int processArguments(int argc, char *argv[]) {
     for (int i = 2; i < argc; i++) {
         if (strcmp(argv[i], "-bw") == 0) {
-            convertToBlackAndWhite(image);
+            convertGrayScale(image);
             return 1; // Se realizó la conversión
         }
     }
